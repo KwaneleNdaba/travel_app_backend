@@ -1,16 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const pinRouter = require("./routes/pin");
+const userRouter = require("./routes/user");
+
 dotenv.config();
 
 // Create an Express app
 const app = express();
-
+app.use(express.json());
 // MongoDB connection URI (replace 'your-db-uri' with your actual MongoDB URI)
 const mongoURI =process.env.MONGO_URI;
 
+
+
 // Connect to MongoDB
-mongoose.connect(mongoURI + "travel_app", {
+mongoose.connect(mongoURI , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -23,9 +28,10 @@ db.once('open', () => {
   // You can start defining your schemas and models or perform other operations here
 });
 
-
+app.use("/api/pins",pinRouter)
+app.use("/api/users",userRouter)
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
