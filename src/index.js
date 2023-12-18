@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Create an Express app
 const app = express();
 
 // MongoDB connection URI (replace 'your-db-uri' with your actual MongoDB URI)
-const mongoURI = 'mongodb+srv://kwanelendaba113:LTSNsskk113@cluster0.z5iwho0.mongodb.net/?retryWrites=true&w=majority';
+const mongoURI =process.env.MONGO_URI;
 
 // Connect to MongoDB
 mongoose.connect(mongoURI + "travel_app", {
