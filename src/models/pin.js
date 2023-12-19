@@ -16,22 +16,22 @@ const pinSchema = new mongoose.Schema(
 
     description: {
       type: String,
-      required: true,
+      require: true,
       max: 50,
     },
     rating : {
         type: Number,
-        required: true,
+        require: true,
         min: 0,
         max:5
     },
     lat : {
         type:Number,
-        required: true,
+        require: true,
     },
     lon:{
         type:Number,
-        required: true,
+        require: true,
     },
     
   },

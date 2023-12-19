@@ -1,10 +1,20 @@
 const router = require('express').Router();;
 const User = require("../models/user")
+const bcrypt = require("bcrypt")
 
 router.post ("/", async (req, res) => {
-    const user = new User(req.body);
+
 
     try {
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const user = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPassword
+            
+        });
         const newUser= await user.save();
     return res.status(200).json(newUser);
     } catch (error) {
@@ -49,6 +59,17 @@ router.get("/:id", async (req,res) => {
         }
     } catch (error) {
         return res.status(500).json({message : error.message})
+    }
+})
+
+router.delete("/:id", async (req,res) => {
+    const id = req.params.id;
+    try {
+        const user = User.findByIdAndDelete({_id:id});
+        if(!user) return res.status(404).json({message: error.message})
+        return res.status(200).json(user)
+    } catch (error) {
+        return res.status(500).json({message: error.message});
     }
 })
 
