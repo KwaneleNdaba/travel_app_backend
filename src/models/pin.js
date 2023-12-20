@@ -14,7 +14,7 @@ const pinSchema = new mongoose.Schema(
       min: 3,
     },
 
-    description: {
+    desc: {
       type: String,
       require: true,
       max: 50,
@@ -29,7 +29,7 @@ const pinSchema = new mongoose.Schema(
         type:Number,
         require: true,
     },
-    lon:{
+    long:{
         type:Number,
         require: true,
     },
